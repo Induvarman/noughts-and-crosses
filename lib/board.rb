@@ -1,13 +1,16 @@
+require 'pry-byebug'
+
 class Board
-  attr_accessor :board 
+  attr_accessor :board
 
   def initialize
-    @board = Array.new(3) { Array.new(3, '-') }
+    @board = Array.new(9, '-')
   end
 
   def print_board
-    board.each do |row|
-      puts row.each { |col| col }.join(" ")
+    board.each_with_index do |val, idx|
+      print "#{val} "
+      puts if ((idx + 1) % 3).zero?
     end
   end
 end
