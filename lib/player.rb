@@ -2,22 +2,28 @@ require 'colorize'
 require_relative 'board'
 
 class Player
-  attr_accessor :board
   attr_reader :sign, :color
 
   def initialize(sign, color)
     @sign = sign
     @color = color
-    @board = Board.new
   end
 
-  def get_position
-    print 'Enter the pos to be insert into the board: '
+  def position(board)
+    print "Player #{sign.colorize(color)}: "
     position = gets.chomp.to_i
-    board.board[position - 1] = sign
+    board.board[position - 1] = sign.colorize(color)
     board.print_board
   end
 end
 
-player = Player.new('x', :red)
-player.get_position
+player_x = Player.new('x', :red)
+player_o = Player.new('o', :blue)
+board = Board.new
+loop do
+  player_x.position board
+
+  break unless board.board.include?('-')
+
+  player_o.position board
+end
