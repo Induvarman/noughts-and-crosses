@@ -10,10 +10,27 @@ class Player
   end
 
   def position(board)
-    print "Player #{sign.colorize(color)}: "
-    position = gets.chomp.to_i
-    board.board[position - 1] = sign.colorize(color)
+    position = 0
+
+    loop do
+      print "Player #{sign.colorize(color)}: "
+      position = gets.chomp.to_i - 1
+
+      break if valid_move?(board, position)
+    end
+    board.panel[position] = sign.colorize(color)
     board.print_board
+  end
+
+  private
+
+  def valid_move?(board, pos)
+    if board.panel[pos] == '-'
+      true
+    else
+      puts 'RETRY!'
+      false
+    end
   end
 end
 
@@ -23,7 +40,7 @@ board = Board.new
 loop do
   player_x.position board
 
-  break unless board.board.include?('-')
+  break unless board.panel.include?('-')
 
   player_o.position board
 end
