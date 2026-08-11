@@ -2,35 +2,23 @@ require 'colorize'
 require_relative 'board'
 
 class Player
-  attr_reader :sign, :color
+  attr_reader :sign, :board
 
   def initialize(sign, color)
-    @sign = sign
-    @color = color
+    @sign = sign.colorize(color)
+    @board = Board.new
   end
 
-  def position(board)
+  def position
     position = 0
 
     loop do
-      print "Player #{sign.colorize(color)}: "
+      print "Player #{sign.colorize(color).upcase}: "
       position = gets.chomp.to_i - 1
 
-      break if valid_move?(board, position)
+      break if board.valid_move?(position)
     end
-    board.panel[position] = sign.colorize(color)
-    board.print_board
-  end
-
-  private
-
-  def valid_move?(board, pos)
-    if board.panel[pos] == '-'
-      true
-    else
-      puts 'RETRY!'
-      false
-    end
+    board.make_move(sign, position)
   end
 end
 
