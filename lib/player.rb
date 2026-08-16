@@ -1,5 +1,4 @@
 require 'colorize'
-require_relative 'board'
 
 class Player
   attr_reader :sign, :board
