@@ -1,6 +1,6 @@
 require 'pry-byebug'
 
-class Board
+class Board # rubocop:disable Style/Documentation
   WIN_COMBINATION = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],
     [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -20,30 +20,32 @@ class Board
     end
   end
 
-  def make_move(player_move, position)
-    @panel[position] = player_move
-
-    if check_status player_move
-      print_board
-      puts "Player #{player_move} Won!"
-      true
-    elsif draw?
-      print_board
-      puts 'DRAW!'
-    end
+  def make_move(current_player, position)
+    @panel[position] = current_player
+    print_board
   end
-
-  protected
 
   def valid_move?(position)
     panel[position] == '-' || false
   end
 
+  def check_status?(current_player)
+    if draw?
+      puts 'The Game is Tie!'
+      true
+    elsif win? current_player
+      puts "Player #{current_player} Won!"
+      true
+    else
+      false
+    end
+  end
+
   private
 
-  def check_status(player_move)
+  def win?(current_player)
     WIN_COMBINATION.any? do |combo|
-      combo.all? { |idx| panel[idx] == player_move }
+      combo.all? { |idx| panel[idx] == current_player }
     end
   end
 

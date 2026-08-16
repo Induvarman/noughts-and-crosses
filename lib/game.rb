@@ -13,10 +13,10 @@ class Game
   def play_round
     loop do
       player_x.position board
-      break if board.draw?
+      break if board.check_status? player_x.sign
 
       player_o.position board
-      break if board.draw?
+      break if board.check_status? player_o.sign
     end
   end
 end
