@@ -30,11 +30,11 @@ class Board # rubocop:disable Style/Documentation
   end
 
   def check_status?(current_player)
-    if draw?
-      puts 'The Game is Tie!'
-      true
-    elsif win? current_player
+    if win? current_player
       puts "Player #{current_player} Won!"
+      true
+    elsif draw?
+      puts 'The Game is Tie!'
       true
     else
       false
