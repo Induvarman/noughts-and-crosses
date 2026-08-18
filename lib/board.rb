@@ -30,8 +30,9 @@ class Board # rubocop:disable Style/Documentation
   end
 
   def check_status?(current_player)
-    if win? current_player
-      puts "Player #{current_player} Won!"
+    if win? current_player.sign
+      puts "Player #{current_player.sign} Won!"
+      current_player.add_win
       true
     elsif draw?
       puts 'The Game is Tie!'
@@ -39,6 +40,10 @@ class Board # rubocop:disable Style/Documentation
     else
       false
     end
+  end
+
+  def empty_board
+    @panel = Array.new(9, '-')
   end
 
   private
