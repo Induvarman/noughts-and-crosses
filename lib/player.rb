@@ -1,10 +1,15 @@
 require 'colorize'
 
 class Player
-  attr_reader :sign, :board
+  attr_reader :sign, :board, :wins
 
   def initialize(sign, color)
     @sign = sign.colorize(color)
+    @wins = 0
+  end
+
+  def add_win
+    @wins = @wins + 1
   end
 
   def position(panel)
